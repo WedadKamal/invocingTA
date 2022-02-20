@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+
+<suite name="Tickets Mall"  verbose="5" preserve-order="true" >
+	<parameter name="browserType" value="Chrome" />
+	<parameter name="url" value="http://10.95.0.178/be-login/auth/login" />
+
+	<test name="Tickets Mall Tests">
+		<classes>
+			<class name="com.fawry.TicketsMall.angularAutomation.tests.BusinessEntityTests" >
+			</class>
+		</classes>
+	</test>
+
+
+</suite>
