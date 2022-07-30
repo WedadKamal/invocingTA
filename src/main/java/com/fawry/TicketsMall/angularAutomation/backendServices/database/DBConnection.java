@@ -23,30 +23,30 @@ public class DBConnection {
             String dbUrl =null;
             String username =null;
             String password =null;
-            PropertiesFilesHandler propHnadler = new PropertiesFilesHandler();
-            Properties prop = propHnadler.loadPropertiesFile(GeneralConstants.DB_CONFIG_FILE_NAME);
+            PropertiesFilesHandler propHandler = new PropertiesFilesHandler();
+            Properties prop = propHandler.loadPropertiesFile(GeneralConstants.DB_CONFIG_FILE_NAME);
             if (dbName.equalsIgnoreCase(GeneralConstants.BUSINESS_ENTITY_DB_NAME)) {
                 dbUrl = prop.getProperty(GeneralConstants.BUSINESS_ENTITY_DB_URL_KEY);
                 username = prop.getProperty(GeneralConstants.BUSINESS_ENTITY_DB_USERNAME_KEY);
                 password = prop.getProperty(GeneralConstants.BUSINESS_ENTITY_DB_PASSWORD_KEY);
             }
-           /* else if (dbName.equalsIgnoreCase(GeneralConstants.GW_DB_NAME)) {
-                dbUrl = prop.getProperty(GeneralConstants.GW_DB_URL_KEY);
-                username = prop.getProperty(GeneralConstants.GW_DB_USERNAME_KEY);
-                password = prop.getProperty(GeneralConstants.GW_DB_PASSWORD_KEY);
+            else if (dbName.equalsIgnoreCase(GeneralConstants.USERS_DB_NAME)) {
+                dbUrl = prop.getProperty(GeneralConstants.USERS_DB_URL_KEY);
+                username = prop.getProperty(GeneralConstants.USERS_DB_USERNAME_KEY);
+                password = prop.getProperty(GeneralConstants.USERS_DB_PASSWORD_KEY);
             }
             else if (dbName.equalsIgnoreCase(GeneralConstants.SOF_DB_NAME)) {
                 dbUrl = prop.getProperty(GeneralConstants.SOF_DB_URL_KEY);
                 username = prop.getProperty(GeneralConstants.SOF_DB_USERNAME_KEY);
                 password = prop.getProperty(GeneralConstants.SOF_DB_PASSWORD_KEY);
             }
-            else if (dbName.equalsIgnoreCase(GeneralConstants.SW_DB_NAME)) {
-                dbUrl = prop.getProperty(GeneralConstants.SW_DB_URL_KEY);
-                username = prop.getProperty(GeneralConstants.SW_DB_USERNAME_KEY);
-                password = prop.getProperty(GeneralConstants.SW_DB_PASSWORD_KEY);
+            else if (dbName.equalsIgnoreCase(GeneralConstants.CORE_DB_NAME)) {
+                dbUrl = prop.getProperty(GeneralConstants.CORE_DB_URL_KEY);
+                username = prop.getProperty(GeneralConstants.CORE_DB_USERNAME_KEY);
+                password = prop.getProperty(GeneralConstants.CORE_DB_PASSWORD_KEY);
             }
-*/
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+
+            Class.forName("oracle.jdbc.OracleDriver");
             con = DriverManager.getConnection(dbUrl, username, password);
 
             Log.info("**********      DB Connection created successfully to " + dbName + "       ***********");

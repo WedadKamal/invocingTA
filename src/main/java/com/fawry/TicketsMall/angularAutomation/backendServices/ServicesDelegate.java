@@ -1,5 +1,7 @@
 package com.fawry.TicketsMall.angularAutomation.backendServices;
 
+import com.fawry.TicketsMall.angularAutomation.backendServices.database.services.VenueService;
+import com.fawry.TicketsMall.angularAutomation.dataModels.VenueDM;
 import com.fawry.TicketsMall.angularAutomation.utils.Log;
 
 public class ServicesDelegate {
@@ -11,12 +13,12 @@ public class ServicesDelegate {
 
 
 
-    /*public List<LookUpModel> getSKUProgs(String partnerMail)
+    public VenueDM getVenueDetails(String venueEnName)
     {
-        List<LookUpModel> loyaltyProgs = null;
+       VenueDM venueDM= null;
         try {
-            LoyaltyProgService lpService = new LoyaltyProgService();
-            loyaltyProgs = lpService.getSKUProgs(partnerMail);
+            VenueService venueService = new VenueService();
+            venueDM = venueService.getVenueDetails(venueEnName);
 
         }
 
@@ -28,8 +30,8 @@ public class ServicesDelegate {
                     .getEnclosingMethod()
                     .getName(), e);
         }
-        return loyaltyProgs;
-    }*/
+        return venueDM;
+    }
 
 
 

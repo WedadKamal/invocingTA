@@ -7,13 +7,12 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import com.fawry.TicketsMall.angularAutomation.backendServices.ServicesDelegate;
-import com.fawry.TicketsMall.angularAutomation.utils.Log;
-import com.fawry.TicketsMall.angularAutomation.utils.ServerLog;
 import com.fawry.TicketsMall.angularAutomation.pages.HomePage;
 import com.fawry.TicketsMall.angularAutomation.pages.LoginPage;
+import com.fawry.TicketsMall.angularAutomation.utils.Log;
 import com.fawry.TicketsMall.angularAutomation.utils.PropertiesFilesHandler;
+import com.fawry.TicketsMall.angularAutomation.utils.ServerLog;
 import com.fawry.TicketsMall.angularAutomation.strategy.testData.TestDataStrategy;
-import com.fawry.TicketsMall.angularAutomation.constants.GeneralConstants;
 import com.paulhammant.ngwebdriver.NgWebDriver;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.JavascriptExecutor;
@@ -31,6 +30,7 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
+import com.fawry.TicketsMall.angularAutomation.constants.GeneralConstants;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 import com.aventstack.extentreports.ExtentReports;
@@ -46,16 +46,15 @@ import javax.mail.internet.*;
 
 public class BaseTest {
 
-	//Selenium and Angular webdrivers
+	//Selenium and Angular web drivers
 	public WebDriver driver;
 	NgWebDriver ngDriver;
 	JavascriptExecutor jsDriver;
-
 	//Extent report objects
 	public ExtentHtmlReporter htmlReporter;
 	public static ExtentReports extent;
 	public ExtentTest test;
-	String vaildUserMail = "";
+	String validUserMail = "";
 
 
 	//Initialize instances of properties files to be used in all tests
@@ -150,18 +149,18 @@ public class BaseTest {
 					break;
 			}
 
-			// initialize angular webdriver
+			// initialize angular web driver
 			jsDriver = (JavascriptExecutor) driver;
 			ngDriver = new NgWebDriver(jsDriver).withRootSelector("\"app-root\"");
 			driver.manage().window().maximize();
 			driver.get(url);
-			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
-			Log.info("Selenium webdriver was initialized successfully");
+			Log.info("Selenium web driver was initialized successfully");
 		}
 		catch(Exception e)
 		{
-			Log.error("Error occured while initializing selenium web driver", e);
+			Log.error("Error occurred while initializing selenium web driver", e);
 		}
 
 	}
@@ -172,22 +171,21 @@ public class BaseTest {
 	{
 		Log.info("Login with valid credentials before class tests to be able to navigate to required pages from homepage");
 
-		String vaildUserPassword = "";
-		vaildUserMail = generalCofigsProps.getProperty(GeneralConstants.VALID_BO_MAIL);
-		vaildUserPassword = generalCofigsProps.getProperty(GeneralConstants.VALID_BO_PASSWORD);
+		validUserMail = generalCofigsProps.getProperty(GeneralConstants.VALID_Vendor_MAIL);
+		String validUserPassword = generalCofigsProps.getProperty(GeneralConstants.VALID_Vendor_PASSWORD);
 
-		LoginPage loginPage = new LoginPage(driver, ngDriver);
-		String loggedInSuccessfully = loginPage.loginSuccessfully(vaildUserMail, vaildUserPassword);
+		LoginPage loginPage = new LoginPage(driver);
+		String loggedInSuccessfully = loginPage.loginSuccessfully(validUserMail, validUserPassword);
 
 		//Check if logged in to the application successfully
 		if(loggedInSuccessfully.equals(GeneralConstants.SUCCESS)) {
-			homepage = new HomePage(driver, ngDriver);
+			homepage = new HomePage(driver);
 			backendService = new ServicesDelegate();
 		}
 		//If user could login to application then it's a blocking issue. Exit
 		else
 		{
-			Log.fatal("Could not login to business entity using the supplied credentials username: " + vaildUserMail + " and password: " + vaildUserPassword);
+			Log.fatal("Could not login to business entity using the supplied credentials username: " + validUserMail + " and password: " + validUserPassword);
 			closeDriver();
 			endReport();
 			System.exit(1);
@@ -278,7 +276,7 @@ public class BaseTest {
 		return destination;
 	}
 
-	public void sendMail(String testReportFilePath) throws AddressException, MessagingException
+	public void sendMail(String testReportFilePath) throws  MessagingException
 	{
 		String recipient = generalCofigsProps.getProperty(GeneralConstants.TEST_REPORT_MAIL_RECIPIENTS);
 		String sender = generalCofigsProps.getProperty(GeneralConstants.TEST_REPORT_MAIL_SENDER);
@@ -330,7 +328,7 @@ public class BaseTest {
 	@AfterClass(description = "Quitting selenium driver after each class run", alwaysRun = true)
 	public void closeDriver()
 	{
-		Log.info("Closing selenium Webdriver after Class");
+		Log.info("Closing selenium Web driver after Class");
 		if(driver !=null)
 			driver.quit();
 	}
@@ -345,26 +343,26 @@ public class BaseTest {
 			String sendReportByMailEnabled = generalCofigsProps.getProperty(GeneralConstants.SEND_REPORT_BY_MAIL_ENABLED);
 
 			if (sendReportByMailEnabled.equalsIgnoreCase(GeneralConstants.TRUE)) {
-				Log.info("Sending test report file path to recipients listed in cinfig file");
+				Log.info("Sending test report file path to recipients listed in config file");
 
 				sendMail("");
 			}
 		}
-			catch (MessagingException e) {
-				Log.error("Error occured while sending test report to recipients " + new Object() {
-				}
-						.getClass()
-						.getName() + "." + new Object() {
-				}
-						.getClass()
-						.getEnclosingMethod()
-						.getName(), e);
+		catch (MessagingException e) {
+			Log.error("Error occurred while sending test report to recipients " + new Object() {
 			}
+					.getClass()
+					.getName() + "." + new Object() {
+			}
+					.getClass()
+					.getEnclosingMethod()
+					.getName(), e);
+		}
 
 	}
 
 
-// Check testdata type and retrieve it from its source accordingly
+	// Check testdata type and retrieve it from its source accordingly
 	protected ArrayList<ArrayList<Object>> provideTestData(String methodName)
 	{
 		Log.info("Retrieving Test data of testcase " + methodName);
@@ -399,7 +397,7 @@ public class BaseTest {
 
 
 
-	// Check testdata type and retrieve it from its source accordingly
+	// Check test data type and retrieve it from its source accordingly
 	protected Object[][] getTestDataFromExtSource(String methodName, Class dmClass)
 	{
 		Log.info("Retrieving Test data of testcase " + methodName);

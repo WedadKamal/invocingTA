@@ -11,9 +11,9 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends MainPage {
 
-	public LoginPage(WebDriver driver, NgWebDriver ngWebDriver)
+	public LoginPage(WebDriver driver)
 	{
-		super(driver, ngWebDriver);
+		super(driver);
 	}
 
 // Initialize page's web elements

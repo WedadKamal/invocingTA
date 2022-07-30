@@ -2,7 +2,7 @@ package com.fawry.TicketsMall.angularAutomation.constants;
 
 public class GeneralConstants {
 
-// *************************    General constants used allover the app   ********************************
+	// *************************    General constants used allover the app   ********************************
 	public static final String SUCCESS = "Success";
 	public static final String FAILED = "Failed";
 	public static final String TRUE = "TRUE";
@@ -18,6 +18,7 @@ public class GeneralConstants {
 	public static final String MISMATCH_ERR_MSG = " Value in DB Mismatched the VALUE in page";
 	public static final String POM_EXCEPTION_ERR_MSG = "Test Failed due to an exception occurred in POM's method";
 	public static final String DB_ERROR_MSG = "No results found in DB or DB error occurred";
+	public static final String Expected_ERR_MSG = "Test Failed due to Expected and Actual Results doesn't Match";
 	public static final String ERR_TYPE_PAGE = "page";
 	public static final String ERR_TYPE_NOTIFICATION = "notification";
 	public static final String STATUS_INITIATED = "INITIATED";
@@ -40,12 +41,13 @@ public class GeneralConstants {
 	public static final String TEST_DATA_TYPE_CLASS_PATH = "TestDataStrategyClassPath_";
 // **********************************************************************************************************
 
-//  **********************   General config file and its properties key names ***************************
+	//  **********************   General config file and its properties key names ***************************
 	public static final String GENERAL_CONFIG_FILE_NAME = "configFiles//GeneralConfigs.properties";
 
 	public static final String SMOKE_TEST_FLAG = "isSmockTestScopeEnabled";
 
 	public static final String DEFAULT_DOWNLOAD_PATH = "defaultDownloadPath";
+	public static final String DEFAULT_UPLOAD_PATH = "defaultUploadPath";
 
 	public static final String MAILSLURP_API_KEY = "mailslurpAPIKey";
 
@@ -65,10 +67,13 @@ public class GeneralConstants {
 	public static final String ADD_LOG_TO_EXTENT_REPORT = "addLogToExtentReport";
 
 
-	//Login Credentials
+	//BO Login Credentials
 	public static final String VALID_BO_MAIL = "login.BO.userMail";
 	public static final String VALID_BO_PASSWORD = "login.BO.password";
 
+	//Vendor Login Credentials
+	public static final String VALID_Vendor_MAIL = "login.Vendor.userMail";
+	public static final String VALID_Vendor_PASSWORD = "login.Vendor.password";
 
 	// Deployment server's configs to get server log file
 	public static final String LOG_SERVER_IP = "logServerIp";
@@ -84,18 +89,37 @@ public class GeneralConstants {
 // **********************************************************************************************************
 
 
-// *****************     Database config file and its properties key names     **************************
+	// *****************     Database config file and its properties key names     **************************
 	public static final String DB_CONFIG_FILE_NAME = "configFiles//DBConfigs.properties";
 
 	//Different DB configs
 	public static final String BUSINESS_ENTITY_DB_NAME = "BUSINESS_ENTITY";
-
+	public static final String USERS_DB_NAME = "USERS";
+	public static final String SOF_DB_NAME = "SOF";
+	public static final String CORE_DB_NAME = "CORE";
 
 	public static final String BUSINESS_ENTITY_DB_URL_KEY = "BUSINESS_ENTITY_DB_URL";
-	public static final String BUSINESS_ENTITY_DB_USERNAME_KEY = "BUSINESS_ENTITY_DB_Username";
-	public static final String BUSINESS_ENTITY_DB_PASSWORD_KEY = "BUSINESS_ENTITY_DB_Password";
+	public static final String BUSINESS_ENTITY_DB_USERNAME_KEY = "BUSINESS_ENTITY_DB_USERNAME";
+	public static final String BUSINESS_ENTITY_DB_PASSWORD_KEY = "BUSINESS_ENTITY_DB_PASSWORD";
+
+	public static final String USERS_DB_URL_KEY = "USERS_DB_URL";
+	public static final String USERS_DB_USERNAME_KEY = "USERS_DB_USERNAME";
+	public static final String USERS_DB_PASSWORD_KEY = "USERS_DB_PASSWORD";
+
+	public static final String SOF_DB_URL_KEY = "SOF_DB_URL";
+	public static final String SOF_DB_USERNAME_KEY = "SOF_DB_USERNAME";
+	public static final String SOF_DB_PASSWORD_KEY = "SOF_DB_PASSWORD";
+
+	public static final String CORE_DB_URL_KEY = "CORE_DB_URL";
+	public static final String CORE_DB_USERNAME_KEY = "CORE_DB_USERNAME";
+	public static final String CORE_DB_PASSWORD_KEY = "CORE_DB_PASSWORD";
 
 
 // **********************************************************************************************************
+
+	public static final String SEATED = "1";
+	public static final String UNSEATED = "0";
+
+	public static final String SEAT_MAP = "SEAT_MAP";
 
 }

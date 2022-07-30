@@ -8,7 +8,7 @@
 
 	<test name="Tickets Mall Tests">
 		<classes>
-			<class name="com.fawry.TicketsMall.angularAutomation.tests.BusinessEntityTests" >
+			<class name="com.fawry.TicketsMall.angularAutomation.tests.VenueTest" >
 			</class>
 		</classes>
 	</test>

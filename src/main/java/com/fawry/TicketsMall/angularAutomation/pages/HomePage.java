@@ -1,96 +1,64 @@
 package com.fawry.TicketsMall.angularAutomation.pages;
 
-import com.fawry.TicketsMall.angularAutomation.constants.GeneralConstants;
 import com.fawry.TicketsMall.angularAutomation.utils.Log;
+import com.fawry.TicketsMall.angularAutomation.constants.GeneralConstants;
 import com.paulhammant.ngwebdriver.NgWebDriver;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
-public class HomePage extends MainPage{
+public class HomePage extends MainPage {
     //invoke parent's constructor
-    public HomePage(WebDriver driver, NgWebDriver ngWebDriver)
-    {
-        super(driver, ngWebDriver);
+    public HomePage(WebDriver driver) {
+        super(driver);
     }
 
     // Initialize web elements
-    @FindBy(tagName= "small")
+    @FindBy(tagName = "small")
     WebElement welcomeMsg;
-    @FindBy(xpath= "//button/span[contains(text(), 'Sign out')]")
+
+    @FindBy(xpath = "//button/span[contains(text(), 'Sign out')]")
     WebElement signOutBtn;
 
-    @FindBy(xpath= "//*[@role='menubar']/li[not(contains(@class, 'p-hidden'))]")
-    WebElement businessEntityDropdownMenuClass;
+    @FindBy(xpath = "//span[text()='Venues']//ancestor::li")
+    WebElement venuesLiDropdownMenu;
 
-    @FindBy(xpath= "//*[text()='Business Entities']")
-    WebElement businessEntityDropdownMenu;
+    @FindBy(xpath = "//span[text()='Venues']")
+    WebElement venuesDropdownMenu;
 
-    @FindBy(xpath= "//*[text()='View Business Entities']")
-    WebElement viewBusinessEntityMenuItem;
+    @FindBy(xpath = "//span[contains(text(),'List Venues')]")
+    WebElement listVenueMenuItem;
 
-    @FindBy(xpath= "//span[text()='Add Bussiness Entity']")
-    WebElement addBusinessEntityMenuItem;
-
-
-
-//    list page's actions
+    @FindBy(xpath = "//span[contains(text(),'Add new Venue')]")
+    WebElement addVenueMenuItem;
 
     //get welcome message
-    public String getWelcomeMsg()
-    {
-        String welocmeMsg = "";
+    public String getWelcomeMsg() {
+        String welcomeMsgStr = "";
         try {
-             welocmeMsg = welcomeMsg.getText();
-        }
-        catch (Exception e)
-        {
-            Log.error("Error occured in " + new Object() {}
-                    .getClass().getName() + "." + new Object() {}
+            welcomeMsgStr = welcomeMsg.getText();
+        } catch (Exception e) {
+            Log.error("Error occurred in " + new Object() {
+            }
+                    .getClass().getName() + "." + new Object() {
+            }
                     .getClass()
                     .getEnclosingMethod()
                     .getName(), e);
             return GeneralConstants.FAILED;
         }
-        return welocmeMsg;
+        return welcomeMsgStr;
     }
 
-    public String logout()
-    {
+    public String logout() {
         try {
-            welcomeMsg.click( );
+            welcomeMsg.click();
             signOutBtn.click();
-        }
-        catch (Exception e)
-        {
-            Log.error("Error occured in " + new Object() {}
-                    .getClass().getName() + "." + new Object() {}
-                    .getClass()
-                    .getEnclosingMethod()
-                    .getName(), e);
-            return GeneralConstants.FAILED;
-        }
-        return GeneralConstants.SUCCESS;
-    }
-
-
-    public void selectBusinessEntityMenuLink()
-    {
-        if(!businessEntityDropdownMenuClass.getAttribute("class").equalsIgnoreCase("p-menuitem-active"))
-            businessEntityDropdownMenu.click();
-    }
-
-    public String navigateToBusinessEntityListPage()
-    {
-        try
-        {
-            Log.info("Navigate to Business Entity list page" );
-            selectBusinessEntityMenuLink();
-            viewBusinessEntityMenuItem.sendKeys(Keys.RETURN);
         } catch (Exception e) {
-            Log.error("Error occured in " + new Object() {
+            Log.error("Error occurred in " + new Object() {
             }
                     .getClass().getName() + "." + new Object() {
             }
@@ -102,21 +70,46 @@ public class HomePage extends MainPage{
         return GeneralConstants.SUCCESS;
     }
 
-    public String navigateToAddBusinessEntityPage()
-    {
+    public void selectVenuesMenuLink() throws InterruptedException {
+        scrollIntoView(venuesDropdownMenu);
+        if (!venuesLiDropdownMenu.getAttribute("class").equalsIgnoreCase("p-menuitem-active"))
+            venuesDropdownMenu.click();
+    }
+
+    public String navigateToListVenuesPage() {
         try {
-            Log.info("Navigate to Add Business Entity Page" );
-            selectBusinessEntityMenuLink();
-            addBusinessEntityMenuItem.click();
+            Log.info("Navigate to list Venues page");
+            selectVenuesMenuLink();
+            listVenueMenuItem.sendKeys(Keys.RETURN);
+
         } catch (Exception e) {
-            Log.error("Error occured in " + new Object() {
+            Log.error("Error occurred in " + new Object() {
             }
                     .getClass().getName() + "." + new Object() {
             }
                     .getClass()
                     .getEnclosingMethod()
                     .getName(), e);
-            return GeneralConstants.FAILED;        }
+            return GeneralConstants.FAILED;
+        }
+        return GeneralConstants.SUCCESS;
+    }
+
+    public String navigateToAddVenuePage() {
+        try {
+            Log.info("Navigate to add venue page");
+            selectVenuesMenuLink();
+            addVenueMenuItem.click();
+        } catch (Exception e) {
+            Log.error("Error occurred in " + new Object() {
+            }
+                    .getClass().getName() + "." + new Object() {
+            }
+                    .getClass()
+                    .getEnclosingMethod()
+                    .getName(), e);
+            return GeneralConstants.FAILED;
+        }
         return GeneralConstants.SUCCESS;
     }
 
