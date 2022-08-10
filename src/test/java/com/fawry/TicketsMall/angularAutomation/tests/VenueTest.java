@@ -20,6 +20,7 @@ public class VenueTest extends BaseTest{
     ArrayList addVenueTestData = new ArrayList();
 
 
+
     @BeforeMethod(alwaysRun = true)
     public void navigateToAddVenuePage() {
         Assert.assertEquals(homepage.getWelcomeMsg(), "Welcome", "BLOCKING ISSUE - CAN NOT LOGIN TO APPLICATION");

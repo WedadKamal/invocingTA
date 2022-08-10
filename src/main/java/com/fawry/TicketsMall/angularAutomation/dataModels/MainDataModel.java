@@ -23,6 +23,16 @@ public class MainDataModel {
 	private String idInDB;
 	private String dbCriteria;
 
+	public String getSecondExpectedMessage() {
+		return secondExpectedMessage;
+	}
+
+	public void setSecondExpectedMessage(String secondExpectedMessage) {
+		this.secondExpectedMessage = secondExpectedMessage;
+	}
+
+	private String secondExpectedMessage;
+
 
 	public String getTestCaseId() {
 		return testCaseId;

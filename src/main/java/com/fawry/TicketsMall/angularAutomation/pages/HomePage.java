@@ -29,6 +29,18 @@ public class HomePage extends MainPage {
     @FindBy(xpath = "//span[text()='Venues']")
     WebElement venuesDropdownMenu;
 
+    @FindBy(xpath = "//span[text()='Categories']")
+    WebElement CategoriesDropdownMenu;
+
+    @FindBy(xpath ="//button[@class = 'ml-4 blank Mmenu bgTransparent p-button p-component ng-star-inserted']")
+    public WebElement OrdersMenu;
+
+    @FindBy(xpath ="//img[@alt= 'Events']")
+    public WebElement EventsPageLink;
+
+    @FindBy(xpath = "//span[contains(text(),'Add new Category')]")
+    WebElement addCategoryMenuItem;
+
     @FindBy(xpath = "//span[contains(text(),'List Venues')]")
     WebElement listVenueMenuItem;
 
@@ -76,6 +88,15 @@ public class HomePage extends MainPage {
             venuesDropdownMenu.click();
     }
 
+    public void selectCategoryMenuLink() throws InterruptedException {
+        scrollIntoViewAndClick(CategoriesDropdownMenu);
+
+    }
+    public void selectVenueMenu() throws InterruptedException {
+        scrollIntoViewAndClick(OrdersMenu);
+
+    }
+
     public String navigateToListVenuesPage() {
         try {
             Log.info("Navigate to list Venues page");
@@ -113,6 +134,39 @@ public class HomePage extends MainPage {
         return GeneralConstants.SUCCESS;
     }
 
-
+    public String navigateToAddCategoryPage() {
+        try {
+            Log.info("Navigate to add category page");
+            selectCategoryMenuLink();
+            addCategoryMenuItem.click();
+        } catch (Exception e) {
+            Log.error("Error occurred in " + new Object() {
+            }
+                    .getClass().getName() + "." + new Object() {
+            }
+                    .getClass()
+                    .getEnclosingMethod()
+                    .getName(), e);
+            return GeneralConstants.FAILED;
+        }
+        return GeneralConstants.SUCCESS;
+    }
+    public String navigateToVenuePage() {
+        try {
+            Log.info("Navigate to Venue page");
+            selectVenueMenu();
+            EventsPageLink.click();
+        } catch (Exception e) {
+            Log.error("Error occurred in " + new Object() {
+            }
+                    .getClass().getName() + "." + new Object() {
+            }
+                    .getClass()
+                    .getEnclosingMethod()
+                    .getName(), e);
+            return GeneralConstants.FAILED;
+        }
+        return GeneralConstants.SUCCESS;
+    }
 
 }

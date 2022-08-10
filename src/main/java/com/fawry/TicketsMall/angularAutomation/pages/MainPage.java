@@ -235,4 +235,13 @@ public class MainPage {
         Thread.sleep(1000);
 
     }
+    public void scrollIntoViewAndClick(WebElement element) throws InterruptedException {
+        //to scroll down the page
+        Thread.sleep(1000);
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("arguments[0].scrollIntoView();", element);
+        Thread.sleep(1000);
+        jse.executeScript("arguments[0].click();", element);
+
+    }
 }

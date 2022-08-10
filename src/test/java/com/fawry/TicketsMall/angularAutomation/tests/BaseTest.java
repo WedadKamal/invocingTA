@@ -64,6 +64,7 @@ public class BaseTest {
 
 	// Browser's default download path config from properties file
 	String browserDefaultDownloadpath = System.getProperty("user.dir") + generalCofigsProps.getProperty(GeneralConstants.DEFAULT_DOWNLOAD_PATH);
+	String browserDefaultUploadpath = System.getProperty("user.dir") + generalCofigsProps.getProperty(GeneralConstants.DEFAULT_UPLOAD_PATH);
 
 	HomePage homepage;
 	ServicesDelegate backendService;
