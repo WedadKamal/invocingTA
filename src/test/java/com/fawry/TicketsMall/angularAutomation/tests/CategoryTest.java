@@ -3,7 +3,7 @@ import com.fawry.TicketsMall.angularAutomation.constants.GeneralConstants;
 import com.fawry.TicketsMall.angularAutomation.constants.database.CategoryDBTable;
 import com.fawry.TicketsMall.angularAutomation.constants.excelIndices.addCategoryExcelIndices;
 import com.fawry.TicketsMall.angularAutomation.dataModels.CategoryDM;
-import com.fawry.TicketsMall.angularAutomation.pages.AddCategoryPage;
+import com.fawry.TicketsMall.angularAutomation.pages.AddAndUpdateCategoryPage;
 import com.fawry.TicketsMall.angularAutomation.utils.Log;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -35,7 +35,7 @@ public class CategoryTest extends BaseTest{
         Log.test = test;
         Log.startTestCase(CatDMObj.getTestCaseId() + " --- " + CatDMObj.getTestCaseTitle());
 
-        AddCategoryPage addCategoryPageObj = new AddCategoryPage(driver);
+        AddAndUpdateCategoryPage addCategoryPageObj = new AddAndUpdateCategoryPage(driver);
         String actualResults = addCategoryPageObj.categoryImageUploaded(CatDMObj);
         Assert.assertEquals(actualResults, GeneralConstants.SUCCESS, GeneralConstants.POM_EXCEPTION_ERR_MSG + " While upload Category image");
         addCategoryPageObj.appendTimestamp(CatDMObj);

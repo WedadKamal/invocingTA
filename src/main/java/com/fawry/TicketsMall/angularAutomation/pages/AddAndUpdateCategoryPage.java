@@ -9,8 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class AddCategoryPage extends MainPage{
-    public AddCategoryPage(WebDriver driver) {
+public class AddAndUpdateCategoryPage extends MainPage{
+    public AddAndUpdateCategoryPage(WebDriver driver) {
         super(driver);
     }
 
