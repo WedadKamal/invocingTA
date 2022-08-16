@@ -5,6 +5,15 @@ public class CategoryDM extends MainDataModel{
     private String EnCategoryName;
     private String ArCategoryName;
     private String Categoryimage;
+    private String CategoryCode;
+
+    public String getCategoryCode() {
+        return CategoryCode;
+    }
+
+    public void setCategoryCode(String categoryCode) {
+        CategoryCode = categoryCode;
+    }
 
     public String getEnCategoryName() {
         return EnCategoryName;

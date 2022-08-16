@@ -9,9 +9,9 @@
 	<test name="Tickets Mall Tests">
 		<classes>
 			<!--<class name="com.fawry.TicketsMall.angularAutomation.tests.VenueTest" >-->
-			<class name="com.fawry.TicketsMall.angularAutomation.tests.CategoryTest" >
-
-			</class>
+		  <!--  <class name="com.fawry.TicketsMall.angularAutomation.tests.CategoryTest" />-->
+			<class name="com.fawry.TicketsMall.angularAutomation.tests.UpdateCategoryTest" />
+			<class name="com.fawry.TicketsMall.angularAutomation.tests.ViewCategoryTest" />
 		</classes>
 	</test>
 

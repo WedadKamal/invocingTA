@@ -27,6 +27,10 @@ public class GeneralConstants {
 	public static final String STATUS_DELETED = "DELETED";
 	public static final String STATUS_PENDING = "PENDING";
 	public static final String STATUS_REFUSED = "REFUSED";
+	public static final String EXPECTED_SAME_NAME_ERROR = "Error#Category with the same name or code exist before";
+	public static final String EXPECTED_UPDATED_MESSAGE = "Success#Category updated successfully";
+	public static final String EXPECTED_CATEGORY_WITH_EVENTS_URL = "http://10.95.0.178/events-manage/events/manage?categoryCode=";
+	public static final String TESTING_IMAGE = "website.jpg";
 
 
 // **********************************************************************************************************

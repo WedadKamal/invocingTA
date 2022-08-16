@@ -32,6 +32,9 @@ public class HomePage extends MainPage {
     @FindBy(xpath = "//span[text()='Categories']")
     WebElement CategoriesDropdownMenu;
 
+    @FindBy(xpath = "//span[text()='List Categories']")
+    WebElement listCategories;
+
     @FindBy(xpath ="//button[@class = 'ml-4 blank Mmenu bgTransparent p-button p-component ng-star-inserted']")
     public WebElement OrdersMenu;
 
@@ -139,6 +142,23 @@ public class HomePage extends MainPage {
             Log.info("Navigate to add category page");
             selectCategoryMenuLink();
             addCategoryMenuItem.click();
+        } catch (Exception e) {
+            Log.error("Error occurred in " + new Object() {
+            }
+                    .getClass().getName() + "." + new Object() {
+            }
+                    .getClass()
+                    .getEnclosingMethod()
+                    .getName(), e);
+            return GeneralConstants.FAILED;
+        }
+        return GeneralConstants.SUCCESS;
+    }
+    public String navigateToCategoryListPage() {
+        try {
+            Log.info("Navigate to List category page");
+            selectCategoryMenuLink();
+            listCategories.click();
         } catch (Exception e) {
             Log.error("Error occurred in " + new Object() {
             }

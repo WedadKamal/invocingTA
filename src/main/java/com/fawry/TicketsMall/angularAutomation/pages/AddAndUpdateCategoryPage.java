@@ -2,8 +2,10 @@ package com.fawry.TicketsMall.angularAutomation.pages;
 import com.fawry.TicketsMall.angularAutomation.constants.GeneralConstants;
 import com.fawry.TicketsMall.angularAutomation.dataModels.CategoryDM;
 import com.fawry.TicketsMall.angularAutomation.utils.Log;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,7 +18,14 @@ public class AddAndUpdateCategoryPage extends MainPage{
 
     String timeStamp = new SimpleDateFormat("hhmmss").format(new Date());
 
+    @FindBy(xpath = "//tbody//tr//td[@class='wordBreak']")
+    List<WebElement> EnCatKeyword;
 
+    @FindBy(xpath = "//button[@class='p-button-outlined p-button-rounded p-button-info mr-3 p-button p-component p-button-icon-only']")
+    WebElement EditCategoryIcon;
+
+    @FindBy(xpath = "//tbody//tr//td//a[contains(text(),'Events')]")
+   WebElement EventsIcon;
     @FindBy(xpath = "//input[@placeholder = 'English Category Name']")
     WebElement EnglishCategoryName;
 
@@ -52,6 +61,80 @@ public class AddAndUpdateCategoryPage extends MainPage{
     WebElement SaveButton;
 
 
+    public String getFirstEnNameCategoryFromView(){
+        String Attribute;
+        try {
+            Thread.sleep(1000);
+            Attribute = EnCatKeyword.get(0).getText();
+        } catch (Exception e) {
+            Log.error("Error occurred in " + new Object() {
+            }
+                    .getClass().getName() + "." + new Object() {
+            }
+                    .getClass()
+                    .getEnclosingMethod()
+                    .getName(), e);
+            return GeneralConstants.FAILED;
+        }
+        return Attribute;
+    }
+
+    public String getCategoryCurrentUrl(){
+        String CurrentUrl;
+        try {
+            Thread.sleep(20000);
+             CurrentUrl = driver.getCurrentUrl();
+        } catch (Exception e) {
+            Log.error("Error occurred in " + new Object() {
+            }
+                    .getClass().getName() + "." + new Object() {
+            }
+                    .getClass()
+                    .getEnclosingMethod()
+                    .getName(), e);
+            return GeneralConstants.FAILED;
+        }
+        return CurrentUrl;
+    }
+    public String checkEventsClickable(){
+
+        try {
+
+       EventsIcon.click();
+
+            Log.info("Category Events Icon Clicked Successfully");
+
+        } catch (Exception e) {
+            Log.error("Error occurred in " + new Object() {
+            }
+                    .getClass().getName() + "." + new Object() {
+            }
+                    .getClass()
+                    .getEnclosingMethod()
+                    .getName(), e);
+            return GeneralConstants.FAILED;
+        }
+        return GeneralConstants.SUCCESS;
+    }
+    public CategoryDM getCatDataFromUpdatePage(){
+        CategoryDM CatDMObj = new CategoryDM();
+        try {
+            Thread.sleep(10000);
+            CatDMObj.setEnCategoryName(EnglishCategoryName.getAttribute("value"));
+            CatDMObj.setArCategoryName(ArabicCategoryName.getAttribute("value"));
+            Log.info("get all Category Data from Updated Category Page");
+            Thread.sleep(5000);
+        }catch (Exception e)
+        {
+            Log.error("ERROR occured in " + new Object() {}
+                    .getClass().getName() + "." + new Object() {}
+                    .getClass()
+                    .getEnclosingMethod()
+                    .getName(), e);
+        }
+
+        return CatDMObj;
+    }
     public String getAllErrMsgsForCategory(String errType,String image) {
         Log.info("Start collecting all massages");
 
@@ -126,7 +209,58 @@ public class AddAndUpdateCategoryPage extends MainPage{
         return GeneralConstants.SUCCESS;
     }
 
+    public String UpdateImageCategory(CategoryDM CategoryDMObj){
+        try {
+            if(CategoryDMObj.getCategoryimage()!=""){
+                ImageContent.click();
 
+                ImagePathElement.sendKeys(System.getProperty("user.dir") + generalCofigsProps.getProperty(GeneralConstants.DEFAULT_UPLOAD_PATH) + "/" + CategoryDMObj.getCategoryimage());
+                Log.info("Image Updated Successfully.");
+                if(ImageContent.isDisplayed()||ImageContent.isEnabled()){
+                    Log.info("Image appears Successfully.");
+                }
+            }
+
+
+
+        } catch (Exception e) {
+            Log.error("Error occurred in " + new Object() {
+            }
+                    .getClass().getName() + "." + new Object() {
+            }
+                    .getClass()
+                    .getEnclosingMethod()
+                    .getName(), e);
+            return GeneralConstants.FAILED;
+        }
+        return GeneralConstants.SUCCESS;
+    }
+    public String UpdateImageCategoryStatic(String Image){
+        try {
+            if(Image!=""){
+                ImageContent.click();
+
+                ImagePathElement.sendKeys(System.getProperty("user.dir") + generalCofigsProps.getProperty(GeneralConstants.DEFAULT_UPLOAD_PATH) + "/" + Image);
+                Log.info("Image Updated Successfully.");
+                if(ImageContent.isDisplayed()||ImageContent.isEnabled()){
+                    Log.info("Image appears Successfully.");
+                }
+            }
+
+
+
+        } catch (Exception e) {
+            Log.error("Error occurred in " + new Object() {
+            }
+                    .getClass().getName() + "." + new Object() {
+            }
+                    .getClass()
+                    .getEnclosingMethod()
+                    .getName(), e);
+            return GeneralConstants.FAILED;
+        }
+        return GeneralConstants.SUCCESS;
+    }
     public String addSameCategory(CategoryDM CategoryDMObj){
         try {
             if(CategoryDMObj.getTestCaseTitle().contains("same name")){
@@ -169,7 +303,40 @@ public class AddAndUpdateCategoryPage extends MainPage{
         return GeneralConstants.SUCCESS;
     }
 
-
+    public String emptyFields(CategoryDM CategoryDMObj) {
+        try {
+            setTextEmptyValue(EnglishCategoryName,CategoryDMObj.getEnCategoryName());
+            setTextEmptyValue(ArabicCategoryName,CategoryDMObj.getArCategoryName());
+            Log.info("Fields got Empty.");
+        } catch (Exception e) {
+            Log.error("Error occurred in " + new Object() {
+            }
+                    .getClass().getName() + "." + new Object() {
+            }
+                    .getClass()
+                    .getEnclosingMethod()
+                    .getName(), e);
+            return GeneralConstants.FAILED;
+        }
+        return GeneralConstants.SUCCESS;
+    }
+    public String clearImage() {
+        try {
+          // ImageContent.click();
+            emptyRequiredFields(ImageContent);
+            Log.info("Fields got Empty.");
+        } catch (Exception e) {
+            Log.error("Error occurred in " + new Object() {
+            }
+                    .getClass().getName() + "." + new Object() {
+            }
+                    .getClass()
+                    .getEnclosingMethod()
+                    .getName(), e);
+            return GeneralConstants.FAILED;
+        }
+        return GeneralConstants.SUCCESS;
+    }
     public void appendTimestamp(CategoryDM CategoryDMObj)
     {
         if(CategoryDMObj.getEnCategoryName() != "")
@@ -179,8 +346,26 @@ public class AddAndUpdateCategoryPage extends MainPage{
      // return CategoryDMObj;
     }
 
+    public String ClickEditButton() {
+        try {
+            Log.info("Click Category Edit button.");
+            scrollIntoViewAndClick(EditCategoryIcon);
+
+        } catch (Exception e) {
+            Log.error("Error occurred in " + new Object() {
+            }
+                    .getClass().getName() + "." + new Object() {
+            }
+                    .getClass()
+                    .getEnclosingMethod()
+                    .getName(), e);
+            return GeneralConstants.FAILED;
+        }
+        return GeneralConstants.SUCCESS;
+    }
     public String clickSaveButton() {
         try {
+
             Log.info("Click save button.");
             scrollIntoViewAndClick(SaveButton);
 
@@ -196,4 +381,5 @@ public class AddAndUpdateCategoryPage extends MainPage{
         }
         return GeneralConstants.SUCCESS;
     }
+
 }

@@ -20,4 +20,14 @@ public class CategoryService {
         conn.closeDBConnection(connection);
         return CategoryDM;
     }
+    public CategoryDM getAllCategoryDetails()throws SQLException, ClassNotFoundException {
+        //Open connection to users database
+        DBConnection conn = new DBConnection();
+        Connection connection = conn.openConnection(GeneralConstants.CORE_DB_NAME);
+        CategoryDAO CategoryDAO = new CategoryDAO();
+        CategoryDM CategoryDM = CategoryDAO.getAllCategoryDetails(connection );
+        //close db connection
+        conn.closeDBConnection(connection);
+        return CategoryDM;
+    }
 }

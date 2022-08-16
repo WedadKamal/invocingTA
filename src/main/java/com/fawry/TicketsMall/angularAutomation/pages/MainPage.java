@@ -74,7 +74,44 @@ public class MainPage {
                 throw new Exception("Web element 'Input' is null .. it could not be located");
         Thread.sleep(100);
     }
+    public void setTextEmptyValue(WebElement inputText, String testDataText) throws Exception {
+            if (inputText != null) {
+                {
+                    new Actions(driver).moveToElement(inputText)
+                            .perform();
+                    inputText.click();
+                    inputText.clear();
+                    if (testDataText.equalsIgnoreCase(GeneralConstants.CLEAR)) {
+                        inputText.sendKeys(testDataText);
+                    }
+                }
+            } else
+                throw new Exception("Web element 'Input' is null .. it could not be located");
+        Thread.sleep(100);
+    }
 
+
+    public String emptyRequiredFields(WebElement inputText) {
+        try {
+     /*    new   new Actions(driver).moveToElement(inputText)
+                    .perform();
+*/
+            inputText.clear();
+
+            Log.info("empty Required Fields.");
+
+        } catch (Exception e) {
+            Log.error("Error occurred in " + new Object() {
+            }
+                    .getClass().getName() + "." + new Object() {
+            }
+                    .getClass()
+                    .getEnclosingMethod()
+                    .getName(), e);
+            return GeneralConstants.FAILED;
+        }
+        return GeneralConstants.SUCCESS;
+    }
     // select mat-select's option(s) by displayed text
     public void selectOptionByDisplayedText(WebElement select, String displayedText) throws Exception {
         if (select != null) {
