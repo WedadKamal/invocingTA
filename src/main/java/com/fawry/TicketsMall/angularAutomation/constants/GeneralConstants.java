@@ -4,6 +4,7 @@ public class GeneralConstants {
 
 	// *************************    General constants used allover the app   ********************************
 	public static final String SUCCESS = "Success";
+	public static final String ERROR = "error";
 	public static final String FAILED = "Failed";
 	public static final String TRUE = "TRUE";
 	public static final String FALSE = "FALSE";
@@ -29,6 +30,8 @@ public class GeneralConstants {
 	public static final String STATUS_REFUSED = "REFUSED";
 	public static final String EXPECTED_SAME_NAME_ERROR = "Error#Category with the same name or code exist before";
 	public static final String EXPECTED_UPDATED_MESSAGE = "Success#Category updated successfully";
+	public static final String EXPECTED_CATEGORY_CANNOT_DELETED_ERROR ="error#cannot delete category that has events or child categories !";
+	public static final String EXPECTED_ACTIVE_CATEGORY_STATUS ="ACTIVE";
 	public static final String EXPECTED_CATEGORY_WITH_EVENTS_URL = "http://10.95.0.178/events-manage/events/manage?categoryCode=";
 	public static final String TESTING_IMAGE = "website.jpg";
 

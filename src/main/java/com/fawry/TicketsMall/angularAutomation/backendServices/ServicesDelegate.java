@@ -54,6 +54,25 @@ public class ServicesDelegate {
         }
         return CategoryDM;
     }
+    public CategoryDM getCategoryStatus(String CategoryEnName)
+    {
+        CategoryDM CategoryDM= null;
+        try {
+            CategoryService CategoryService = new CategoryService();
+            CategoryDM = CategoryService.getCategoryStatus(CategoryEnName);
+
+        }
+
+        catch (Exception e)
+        {
+            Log.error("ERROR occured in " + new Object() {}
+                    .getClass().getName() + "." + new Object() {}
+                    .getClass()
+                    .getEnclosingMethod()
+                    .getName(), e);
+        }
+        return CategoryDM;
+    }
 
     public CategoryDM getAllCategoryDetails()
     {

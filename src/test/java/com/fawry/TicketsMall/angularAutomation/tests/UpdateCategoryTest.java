@@ -109,7 +109,7 @@ public class UpdateCategoryTest extends BaseTest{
     {
         //Backend verification. Assert that all data inserted in screen are the same inserted to corresponding DB columns
         SoftAssert softAssert = new SoftAssert();
-        Log.info("cat en name is "+frontendModel.getEnCategoryName());
+
         CategoryDM backendModel = backendService.getCategoryDetails(frontendModel.getEnCategoryName());
 
         // if program was found in DB, Use soft assert to validate all data and identify all failures if exist

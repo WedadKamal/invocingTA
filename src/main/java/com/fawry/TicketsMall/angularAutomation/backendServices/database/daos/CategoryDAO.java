@@ -10,15 +10,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.fawry.TicketsMall.angularAutomation.constants.database.CategoryDBTable.TABLE_NAME_LOCKUP;
+
 public class CategoryDAO {
 
     public CategoryDM getCategoryDetails(Connection dbConn, String CategoryEnName) throws SQLException {
 
+
         //Create DB Query to selected added/updated Category
         StringBuilder query = new StringBuilder();
-        query.append("      select MERCHANT_ITEM_CATEGORY.ID ,MERCHANT_ITEM_CATEGORY.NAME_PRIMARY_LANG, MERCHANT_ITEM_CATEGORY.NAME_SECONDARY_LANG,\n" +
-                "  MERCHANT_ITEM_CATEGORY.CATEGORY_IMAGE_URL, MERCHANT_ITEM_CATEGORY.CATEGORY_CODE from MERCHANT_ITEM_CATEGORY where MERCHANT_ITEM_CATEGORY.NAME_PRIMARY_LANG ='"+CategoryEnName+"'");
-
+        query.append(        "select MERCHANT_ITEM_CATEGORY.ID ,MERCHANT_ITEM_CATEGORY.NAME_PRIMARY_LANG, MERCHANT_ITEM_CATEGORY.NAME_SECONDARY_LANG,\n" +
+                        " MERCHANT_ITEM_CATEGORY.CATEGORY_IMAGE_URL, MERCHANT_ITEM_CATEGORY.CATEGORY_CODE,\n" +
+                        " MERCHANT_ITEM_CATEGORY.STATUS_ID from MERCHANT_ITEM_CATEGORY where MERCHANT_ID = 4606 AND MERCHANT_ITEM_CATEGORY.NAME_PRIMARY_LANG = '"+CategoryEnName+"'");
         // Execute query
         DBConnection conn = new DBConnection();
         ResultSet CategoryRS = conn.executeQueryAndGetRS(dbConn, query.toString());
@@ -33,6 +36,7 @@ public class CategoryDAO {
             CategoryDM.setArCategoryName(CategoryRS.getString(CategoryDBTable.NAME_SECONDARY_LANG)==null?"":CategoryRS.getString(CategoryDBTable.NAME_SECONDARY_LANG));
             CategoryDM.setCategoryimage(CategoryRS.getString(CategoryDBTable.CATEGORY_IMAGE_URL)==null?"":CategoryRS.getString(CategoryDBTable.CATEGORY_IMAGE_URL));
             CategoryDM.setCategoryCode(CategoryRS.getString(CategoryDBTable.CATEGORY_CODE)==null?"":CategoryRS.getString(CategoryDBTable.CATEGORY_CODE));
+            CategoryDM.setCategory_Status_ID(CategoryRS.getString(CategoryDBTable.STATUS_ID)==null?"":CategoryRS.getString(CategoryDBTable.STATUS_ID));
 
         }
         return CategoryDM;
@@ -70,6 +74,31 @@ public class CategoryDAO {
         CategoryDM.setArCategoryName(CatEnName.get(0));
         CategoryDM.setCategoryimage(CatEnName.get(0));
 
+        return CategoryDM;
+    }
+    public CategoryDM getCategoryStatus(Connection dbConn, String CategoryEnName) throws SQLException {
+
+
+        //Create DB Query to selected added/updated Category
+        StringBuilder query = new StringBuilder();
+        query.append(
+        "select LOOKUP_TYPES_STATUS.CODE from LOOKUP_TYPES_STATUS where\n" +
+                "LOOKUP_TYPES_STATUS.ID = (select MERCHANT_ITEM_CATEGORY.STATUS_ID from MERCHANT_ITEM_CATEGORY where \n" +
+                "MERCHANT_ITEM_CATEGORY.MERCHANT_ID = (select ECOMMERCE_MERCHANTS.ID from ECOMMERCE_MERCHANTS where ECOMMERCE_MERCHANTS.EMAIL='TicketsVendor@fawry.com'\n" +
+                "AND MERCHANT_ITEM_CATEGORY.NAME_PRIMARY_LANG =  '"+CategoryEnName+"'"+"))");
+        // Execute query
+        DBConnection conn = new DBConnection();
+        ResultSet CategoryRS = conn.executeQueryAndGetRS(dbConn, query.toString());
+
+        // fill data returned from DB into data model
+        CategoryDM CategoryDM = null;
+
+        if (CategoryRS.next())
+        {
+            CategoryDM = new CategoryDM();
+            CategoryDM.setCategory_Status_Code(CategoryRS.getString(CategoryDBTable.CATEGORY_STATUS_CODE)==null?"":CategoryRS.getString(CategoryDBTable.CATEGORY_STATUS_CODE));
+
+        }
         return CategoryDM;
     }
 
