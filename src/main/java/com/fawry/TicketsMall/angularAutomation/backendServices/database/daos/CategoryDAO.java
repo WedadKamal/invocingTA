@@ -46,7 +46,7 @@ public class CategoryDAO {
         //Create DB Query to selected added/updated Category
         StringBuilder query = new StringBuilder();
         query.append("      select MERCHANT_ITEM_CATEGORY.ID ,MERCHANT_ITEM_CATEGORY.NAME_PRIMARY_LANG, MERCHANT_ITEM_CATEGORY.NAME_SECONDARY_LANG,\n" +
-                "  MERCHANT_ITEM_CATEGORY.CATEGORY_IMAGE_URL from MERCHANT_ITEM_CATEGORY where MERCHANT_ITEM_CATEGORY.MERCHANT_ID = 4606");
+                "  MERCHANT_ITEM_CATEGORY.CATEGORY_IMAGE_URL from MERCHANT_ITEM_CATEGORY where MERCHANT_ITEM_CATEGORY.MERCHANT_ID = 4606 AND MERCHANT_ITEM_CATEGORY.STATUS_ID=1");
 
         // Execute query
         DBConnection conn = new DBConnection();
@@ -99,6 +99,62 @@ public class CategoryDAO {
             CategoryDM.setCategory_Status_Code(CategoryRS.getString(CategoryDBTable.CATEGORY_STATUS_CODE)==null?"":CategoryRS.getString(CategoryDBTable.CATEGORY_STATUS_CODE));
 
         }
+        return CategoryDM;
+    }
+    public CategoryDM getDeletedCategoryDetails(Connection dbConn) throws SQLException {
+
+        //Create DB Query to selected added/updated Category
+        StringBuilder query = new StringBuilder();
+        query.append(" select MERCHANT_ITEM_CATEGORY.ID ,MERCHANT_ITEM_CATEGORY.NAME_PRIMARY_LANG, MERCHANT_ITEM_CATEGORY.NAME_SECONDARY_LANG,\n" +
+                "                MERCHANT_ITEM_CATEGORY.CATEGORY_IMAGE_URL from MERCHANT_ITEM_CATEGORY where MERCHANT_ITEM_CATEGORY.MERCHANT_ID = 4606 AND MERCHANT_ITEM_CATEGORY.STATUS_ID=3");
+
+        // Execute query
+        DBConnection conn = new DBConnection();
+        ResultSet CategoryRS = conn.executeQueryAndGetRS(dbConn, query.toString());
+
+        // fill data returned from DB into data model
+        CategoryDM CategoryDM = null;
+        List<String> CatEnName = new ArrayList<String>();
+        List<String> CatArName = new ArrayList<String>();
+        List<String> Image = new ArrayList<String>();
+
+        while (CategoryRS.next())
+        {
+            CatEnName.add(CategoryRS.getString(CategoryDBTable.NAME_PRIMARY_LANG)==null?"":CategoryRS.getString(CategoryDBTable.NAME_PRIMARY_LANG));
+            CatArName.add(CategoryRS.getString(CategoryDBTable.NAME_SECONDARY_LANG)==null?"":CategoryRS.getString(CategoryDBTable.NAME_SECONDARY_LANG));
+            Image.add(CategoryRS.getString(CategoryDBTable.CATEGORY_IMAGE_URL)==null?"":CategoryRS.getString(CategoryDBTable.CATEGORY_IMAGE_URL));
+        }
+        CategoryDM = new CategoryDM();
+        CategoryDM.setEnCategoryName(CatEnName.get(0));
+        CategoryDM.setArCategoryName(CatEnName.get(0));
+        CategoryDM.setCategoryimage(CatEnName.get(0));
+
+        return CategoryDM;
+    }
+    public CategoryDM getCategoryEventsCount(Connection dbConn,String CategoryEnName) throws SQLException {
+
+        //Create DB Query to selected added/updated Category
+        StringBuilder query = new StringBuilder();
+        query.append(" select * from MERCHANT_ITEMS where MERCHANT_ITEM_CATEGORY_ID = \n" +
+                "(select MERCHANT_ITEM_CATEGORY.ID FROM MERCHANT_ITEM_CATEGORY WHERE NAME_PRIMARY_LANG =  '"+CategoryEnName+"'"+")" +
+                "AND MERCHANT_ITEMS.STATUS_ID = 1");
+
+        // Execute query
+        DBConnection conn = new DBConnection();
+        ResultSet CategoryRS = conn.executeQueryAndGetRS(dbConn, query.toString());
+
+        // fill data returned from DB into data model
+        CategoryDM CategoryDM = null;
+        List<String> CatEnName = new ArrayList<String>();
+        List<String> CatArName = new ArrayList<String>();
+        List<String> Image = new ArrayList<String>();
+
+        while (CategoryRS.next())
+        {
+            CategoryDM = new CategoryDM();
+            CategoryDM.setCategoryEventsCount(CategoryRS.getRow());
+        }
+
         return CategoryDM;
     }
 

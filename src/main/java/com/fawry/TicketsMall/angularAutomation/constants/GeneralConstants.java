@@ -34,6 +34,8 @@ public class GeneralConstants {
 	public static final String EXPECTED_ACTIVE_CATEGORY_STATUS ="ACTIVE";
 	public static final String EXPECTED_CATEGORY_WITH_EVENTS_URL = "http://10.95.0.178/events-manage/events/manage?categoryCode=";
 	public static final String TESTING_IMAGE = "website.jpg";
+	public static final String NO_RESULT_MSG = "No results found";
+
 
 
 // **********************************************************************************************************

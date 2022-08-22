@@ -74,9 +74,10 @@ public class ViewCategoryPage extends MainPage{
     }
 
     public String CheckNoResultFoundDisplayed() {
+        String NoResultFoundMsg = null;
         try {
             if(NoResultFound.isDisplayed()||NoResultFound.isEnabled()){
-                Log.info("Image appears Successfully.");
+                NoResultFoundMsg= NoResultFound.getText();
             }
         } catch (Exception e) {
             Log.error("Error occurred in " + new Object() {
@@ -88,11 +89,11 @@ public class ViewCategoryPage extends MainPage{
                     .getName(), e);
             return GeneralConstants.FAILED;
         }
-        return GeneralConstants.SUCCESS;
+        return NoResultFoundMsg;
     }
-    public String setCategoryName(String AnynoumousName){
+    public String setSearchCategoryName(String AnynoumousName){
         try {
-            Log.info("Set Category Data.");
+            Log.info("Search with Category Name "+ AnynoumousName);
             setTextValue(SearchText , AnynoumousName);
         } catch (Exception e) {
             Log.error("Error occurred in " + new Object() {
@@ -105,6 +106,26 @@ public class ViewCategoryPage extends MainPage{
             return GeneralConstants.FAILED;
         }
         return GeneralConstants.SUCCESS;
+    }
+    public String searchBusinessEntityByName(String name) {
+
+        String mail;
+        try {
+            setTextValue(SearchText, name);
+            Thread.sleep(1000);
+            List<WebElement> rows = searchResultsRows.get(0).findElements(By.tagName("td"));
+            mail = rows.get(3).getText();
+        }
+        catch(Exception e)
+        {
+            Log.error("Error occurred in "+new Object(){}
+                    .getClass().getName()+"."+new Object(){}
+                    .getClass()
+                    .getEnclosingMethod()
+                    .getName(),e);
+            return GeneralConstants.FAILED;
+        }
+        return mail;
     }
     public String CreateAnynomousCatName() {
         String AnynomousName;
@@ -198,9 +219,39 @@ public class ViewCategoryPage extends MainPage{
             }
         }
 
-        Log.info("index is " + getIndexEvents);
+      //  Log.info("index is " + getIndexEvents);
         return getIndexEvents;
     }
+    public CategoryDM getCatDMFromViewTable (ArrayList<CategoryDM> CategoryDMS,String EnCatName){
+        CategoryDM  CategoryDM = new CategoryDM();
+
+        try {
+        for (int i = 0 ; i< CategoryDMS.size(); i++){
+
+
+            if (CategoryDMS.get(i).getEnCategoryName().equalsIgnoreCase(EnCatName)){
+                CategoryDM.setEnCategoryName(CategoryDMS.get(i).getEnCategoryName());
+                CategoryDM.setCategory_Events(CategoryDMS.get(i).getCategory_Events());
+                break;
+            }
+        }
+    } catch (Exception e) {
+        Log.error("Error occurred in " + new Object() {
+        }
+                .getClass().getName() + "." + new Object() {
+        }
+                .getClass()
+                .getEnclosingMethod()
+                .getName(), e);
+        actual = GeneralConstants.FAILED;
+        driver.navigate().refresh();
+        return null;
+    }
+
+        //  Log.info("index is " + getIndexEvents);
+        return CategoryDM;
+    }
+
     public int getRowIndexForCategoryRowWithEvents (ArrayList<CategoryDM> CategoryDMS){
 
         String EventsZero ;
@@ -215,7 +266,7 @@ public class ViewCategoryPage extends MainPage{
             }
         }
 
-        Log.info("index is " + getIndexEvents);
+       // Log.info("index is " + getIndexEvents);
         return getIndexEvents;
     }
 

@@ -74,12 +74,52 @@ public class ServicesDelegate {
         return CategoryDM;
     }
 
+    public CategoryDM getDeletedCategory()
+    {
+        CategoryDM CategoryDM= null;
+        try {
+            CategoryService CategoryService = new CategoryService();
+            CategoryDM = CategoryService.getDeletedCategory();
+
+        }
+
+        catch (Exception e)
+        {
+            Log.error("ERROR occured in " + new Object() {}
+                    .getClass().getName() + "." + new Object() {}
+                    .getClass()
+                    .getEnclosingMethod()
+                    .getName(), e);
+        }
+        return CategoryDM;
+    }
+
     public CategoryDM getAllCategoryDetails()
     {
         CategoryDM CategoryDM= null;
         try {
             CategoryService CategoryService = new CategoryService();
             CategoryDM = CategoryService.getAllCategoryDetails();
+
+        }
+
+        catch (Exception e)
+        {
+            Log.error("ERROR occured in " + new Object() {}
+                    .getClass().getName() + "." + new Object() {}
+                    .getClass()
+                    .getEnclosingMethod()
+                    .getName(), e);
+        }
+        return CategoryDM;
+    }
+
+    public CategoryDM getCategoryEventsCount(String CategoryEnName)
+    {
+        CategoryDM CategoryDM= null;
+        try {
+            CategoryService CategoryService = new CategoryService();
+            CategoryDM = CategoryService.getCategoryEventsCount(CategoryEnName);
 
         }
 

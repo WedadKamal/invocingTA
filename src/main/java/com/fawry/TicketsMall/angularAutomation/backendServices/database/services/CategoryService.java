@@ -43,4 +43,25 @@ public class CategoryService {
         conn.closeDBConnection(connection);
         return CategoryDM;
     }
+    public CategoryDM getDeletedCategory()throws SQLException, ClassNotFoundException {
+        //Open connection to users database
+        DBConnection conn = new DBConnection();
+        Connection connection = conn.openConnection(GeneralConstants.CORE_DB_NAME);
+        CategoryDAO CategoryDAO = new CategoryDAO();
+        CategoryDM CategoryDM = CategoryDAO.getDeletedCategoryDetails(connection);
+        //close db connection
+        conn.closeDBConnection(connection);
+        return CategoryDM;
+    }
+    public CategoryDM getCategoryEventsCount(String CategoryEnName)throws SQLException, ClassNotFoundException {
+        //Open connection to users database
+        DBConnection conn = new DBConnection();
+        Connection connection = conn.openConnection(GeneralConstants.CORE_DB_NAME);
+        CategoryDAO CategoryDAO = new CategoryDAO();
+        CategoryDM CategoryDM = CategoryDAO.getCategoryEventsCount(connection, CategoryEnName);
+        //close db connection
+        conn.closeDBConnection(connection);
+        return CategoryDM;
+    }
+
 }

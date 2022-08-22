@@ -9,6 +9,16 @@ public class CategoryDM extends MainDataModel{
     private String Category_Status_ID;
     private String Category_Events;
     private String Category_Status_Code;
+    private int CategoryEventsCount;
+
+
+    public int getCategoryEventsCount() {
+        return CategoryEventsCount;
+    }
+
+    public void setCategoryEventsCount(int categoryEventsCount) {
+        CategoryEventsCount = categoryEventsCount;
+    }
 
     public String getCategory_Status_Code() {
         return Category_Status_Code;

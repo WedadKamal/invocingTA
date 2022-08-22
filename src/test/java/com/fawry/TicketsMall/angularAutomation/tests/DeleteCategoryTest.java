@@ -99,20 +99,6 @@ public class DeleteCategoryTest extends BaseTest{
 
     }
 
-    @Test(description = "delete category| verify that category has events couldn't be delete",priority = 2,enabled = true)
-    public void VerifySearchByDeletedCategory()
-    {
-        test = extent.createTest("36393 --- delete category| verify that search by deleted category");
-        Log.test = test;
-        Log.startTestCase("36393 --- delete category| verify that search by deleted category");
-        ViewCategoryPage DeleteCategoryPageObj = new ViewCategoryPage(driver);
-        String NewAnynoumousName = DeleteCategoryPageObj.CreateAnynomousCatName();
-        actualResults =DeleteCategoryPageObj.setCategoryName(NewAnynoumousName);
-        Assert.assertEquals(actualResults, GeneralConstants.SUCCESS, GeneralConstants.POM_EXCEPTION_ERR_MSG + " While clicking Delete Category Icon");
-        actualResults = DeleteCategoryPageObj.CheckNoResultFoundDisplayed();
-        Assert.assertEquals(actualResults, GeneralConstants.SUCCESS, GeneralConstants.POM_EXCEPTION_ERR_MSG + " While clicking Delete Category Icon");
-
-    }
 
     public void assertDeleteCategory(String CategoryEnNameFromViewPage,CategoryDM frontendModel)
     {
